@@ -15,6 +15,7 @@ import {
 } from "react-aria-components";
 import {
   hid_usage_from_page_and_id,
+  hid_usage_get_zh_label,
   hid_usage_page_get_ids,
 } from "../hid-usages";
 import { useCallback, useMemo } from "react";
@@ -35,6 +36,11 @@ export interface HidUsagePickerProps {
 
 type UsageSectionProps = HidUsagePage;
 
+const page_name_zh: Record<number, string> = {
+  7: "键盘",
+  12: "消费类",
+};
+
 const UsageSection = ({ id, min, max }: UsageSectionProps) => {
   const info = useMemo(() => hid_usage_page_get_ids(id), [id]);
 
@@ -53,14 +59,16 @@ const UsageSection = ({ id, min, max }: UsageSectionProps) => {
 
   return (
     <Section id={id}>
-      <Header className="text-base-content/50">{info?.Name}</Header>
+      <Header className="text-base-content/50">
+        {page_name_zh[id] || info?.Name}
+      </Header>
       <Collection items={usages}>
         {(i) => (
           <ListBoxItem
             className="rac-hover:bg-base-300 pl-3 relative rac-focus:bg-base-300 cursor-default select-none rac-selected:before:content-['✔'] before:absolute before:left-[0] before:top-[0]"
             id={hid_usage_from_page_and_id(id, i.Id)}
           >
-            {i.Name}
+            {hid_usage_get_zh_label(id, i.Id) || i.Name}
           </ListBoxItem>
         )}
       </Collection>

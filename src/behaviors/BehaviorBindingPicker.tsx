@@ -13,6 +13,7 @@ export interface BehaviorBindingPickerProps {
   behaviors: GetBehaviorDetailsResponse[];
   layers: { id: number; name: string }[];
   onBindingChanged: (binding: BehaviorBinding) => void;
+  paramLabels?: { param1?: string; param2?: string };
 }
 
 function validateBinding(
@@ -44,6 +45,7 @@ export const BehaviorBindingPicker = ({
   layers,
   behaviors,
   onBindingChanged,
+  paramLabels,
 }: BehaviorBindingPickerProps) => {
   const [behaviorId, setBehaviorId] = useState(binding.behaviorId);
   const [param1, setParam1] = useState<number | undefined>(binding.param1);
@@ -126,6 +128,8 @@ export const BehaviorBindingPicker = ({
           layers={layers}
           onParam1Changed={setParam1}
           onParam2Changed={setParam2}
+          param1Label={paramLabels?.param1}
+          param2Label={paramLabels?.param2}
         />
       )}
     </div>

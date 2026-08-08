@@ -5,6 +5,8 @@ import { validateValue } from "./parameters";
 export interface BehaviorParametersPickerProps {
   param1?: number;
   param2?: number;
+  param1Label?: string;
+  param2Label?: string;
   metadata: BehaviorBindingParametersSet[];
   layers: { id: number; name: string }[];
   onParam1Changed: (value?: number) => void;
@@ -14,6 +16,8 @@ export interface BehaviorParametersPickerProps {
 export const BehaviorParametersPicker = ({
   param1,
   param2,
+  param1Label,
+  param2Label,
   metadata,
   layers,
   onParam1Changed,
@@ -22,6 +26,7 @@ export const BehaviorParametersPicker = ({
   if (param1 === undefined) {
     return (
       <div>
+        {param1Label && <label>{param1Label}: </label>}
         <ParameterValuePicker
           values={metadata.flatMap((m) => m.param1)}
           onValueChanged={onParam1Changed}
@@ -39,6 +44,7 @@ export const BehaviorParametersPicker = ({
     );
     return (
       <>
+        {param1Label && <label>{param1Label}: </label>}
         <ParameterValuePicker
           values={metadata.flatMap((m) => m.param1)}
           value={param1}
@@ -46,12 +52,15 @@ export const BehaviorParametersPicker = ({
           onValueChanged={onParam1Changed}
         />
         {(set?.param2?.length || 0) > 0 && (
-          <ParameterValuePicker
-            values={set!.param2}
-            value={param2}
-            layers={layers}
-            onValueChanged={onParam2Changed}
-          />
+          <>
+            {param2Label && <label>{param2Label}: </label>}
+            <ParameterValuePicker
+              values={set!.param2}
+              value={param2}
+              layers={layers}
+              onValueChanged={onParam2Changed}
+            />
+          </>
         )}
       </>
     );

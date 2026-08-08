@@ -643,9 +643,7 @@ export default function Keyboard() {
                     title={`Encoder ${i}: ${
                       behaviors[sb.behaviorId]?.displayName || "Unknown"
                     }`}
-                  >
-                    <span className="text-sm font-semibold">{i}</span>
-                  </button>
+                  ></button>
                   <span className="text-xs">
                     {behaviors[sb.behaviorId]?.displayName || "Unknown"}
                   </span>

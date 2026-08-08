@@ -40,6 +40,7 @@ export const Keymap = ({
       return {
         id: `${keymap.layers[selectedLayerIndex].id}-${i}`,
         header: "Unknown",
+        round: i === 0,
         x: k.x / 100.0,
         y: k.y / 100.0,
         width: k.width / 100,
@@ -53,6 +54,7 @@ export const Keymap = ({
       header:
         behaviors[keymap.layers[selectedLayerIndex].bindings[i].behaviorId]
           ?.displayName || "Unknown",
+      round: i === 0,
       x: k.x / 100.0,
       y: k.y / 100.0,
       width: k.width / 100,

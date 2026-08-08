@@ -7,6 +7,7 @@ interface KeyProps {
   height: number;
   oneU: number;
   header?: string;
+  round?: boolean;
   onClick?: () => void;
 }
 
@@ -40,15 +41,20 @@ export const Key = ({
   height,
   oneU,
   header,
+  round = false,
   onClick,
   children,
 }: PropsWithChildren<KeyProps>) => {
-  const pixelWidth = width * oneU - 2;
-  const pixelHeight = height * oneU - 2;
+  const pixelWidth = round
+    ? Math.min(width, height) * oneU - 2
+    : width * oneU - 2;
+  const pixelHeight = round
+    ? Math.min(width, height) * oneU - 2
+    : height * oneU - 2;
 
   return (
     <button
-      className={`group rounded relative flex justify-center items-center cursor-pointer transition-all hover:shadow-xl hover:ring-1 hover:ring-gray-300 hover:scale-125 ${selected ? "bg-primary text-primary-content" : "bg-base-100 text-base-content"
+      className={`group relative flex justify-center items-center cursor-pointer transition-all hover:shadow-xl hover:ring-1 hover:ring-gray-300 hover:scale-125 ${round ? "rounded-full" : "rounded"} ${selected ? "bg-primary text-primary-content" : "bg-base-100 text-base-content"
         }`}
       style={{
         width: `${pixelWidth}px`,

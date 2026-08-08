@@ -60,7 +60,7 @@ const UsageSection = ({ id, min, max }: UsageSectionProps) => {
   return (
     <Section id={id}>
       <Header className="text-base-content/50">
-        {page_name_zh[id] || info?.Name}
+        {info?.Name}{page_name_zh[id] ? ` / ${page_name_zh[id]}` : ""}
       </Header>
       <Collection items={usages}>
         {(i) => (
@@ -68,7 +68,14 @@ const UsageSection = ({ id, min, max }: UsageSectionProps) => {
             className="rac-hover:bg-base-300 pl-3 relative rac-focus:bg-base-300 cursor-default select-none rac-selected:before:content-['✔'] before:absolute before:left-[0] before:top-[0]"
             id={hid_usage_from_page_and_id(id, i.Id)}
           >
-            {hid_usage_get_zh_label(id, i.Id) || i.Name}
+            <div className="flex flex-col">
+              <span>{i.Name}</span>
+              {hid_usage_get_zh_label(id, i.Id) && (
+                <span className="text-xs text-base-content/60">
+                  {hid_usage_get_zh_label(id, i.Id)}
+                </span>
+              )}
+            </div>
           </ListBoxItem>
         )}
       </Collection>

@@ -18,28 +18,13 @@ export const HidUsageLabel = ({ hid_usage }: HidUsageLabelProps) => {
   // TODO: Do something with implicit mods!
   page &= 0xff;
 
-  let zh = hid_usage_get_zh_label(page, id);
-  if (zh) {
-    return (
-      <span
-        className="@[10em]:before:content-[attr(data-long-content)] @[6em]:before:content-[attr(data-med-content)] before:content-[attr(aria-label)]"
-        aria-label={zh}
-        data-med-content={zh}
-        data-long-content={zh}
-      />
-    );
-  }
-
   let labels = hid_usage_get_labels(page, id);
+  let zh = hid_usage_get_zh_label(page, id);
 
   return (
-    <span
-      className="@[10em]:before:content-[attr(data-long-content)] @[6em]:before:content-[attr(data-med-content)] before:content-[attr(aria-label)]"
-      aria-label={remove_prefix(labels.short)}
-      data-med-content={remove_prefix(labels.med || labels.short)}
-      data-long-content={remove_prefix(
-        labels.long || labels.med || labels.short
-      )}
-    />
+    <span className="flex flex-col items-center leading-tight">
+      <span>{remove_prefix(labels.short)}</span>
+      {zh && <span className="text-[0.65em] opacity-60">{zh}</span>}
+    </span>
   );
 };

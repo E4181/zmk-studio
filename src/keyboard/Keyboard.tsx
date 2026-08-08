@@ -629,20 +629,27 @@ export default function Keyboard() {
             <span className="text-sm font-semibold">Encoders</span>
             {keymap.layers[selectedLayerIndex].sensorBindings.map(
               (sb, i) => (
-                <button
-                  key={i}
-                  className={
-                    selectedSensorPosition === i
-                      ? "h-8 rounded px-2 text-left bg-primary text-primary-content"
-                      : "h-8 rounded px-2 text-left bg-base-100"
-                  }
-                  onClick={() => {
-                    setSelectedSensorPosition(i);
-                    setSelectedKeyPosition(undefined);
-                  }}
-                >
-                  Encoder {i}: {behaviors[sb.behaviorId]?.displayName || "Unknown"}
-                </button>
+                <div key={i} className="flex items-center gap-2">
+                  <button
+                    className={
+                      selectedSensorPosition === i
+                        ? "w-10 h-10 rounded-full shrink-0 flex items-center justify-center bg-primary text-primary-content"
+                        : "w-10 h-10 rounded-full shrink-0 flex items-center justify-center bg-base-100 border border-base-content/20"
+                    }
+                    onClick={() => {
+                      setSelectedSensorPosition(i);
+                      setSelectedKeyPosition(undefined);
+                    }}
+                    title={`Encoder ${i}: ${
+                      behaviors[sb.behaviorId]?.displayName || "Unknown"
+                    }`}
+                  >
+                    <span className="text-sm font-semibold">{i}</span>
+                  </button>
+                  <span className="text-xs">
+                    {behaviors[sb.behaviorId]?.displayName || "Unknown"}
+                  </span>
+                </div>
               )
             )}
           </div>
